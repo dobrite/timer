@@ -1,4 +1,5 @@
 module Timer
+  # A simulated output
   class Output
     def initialize(index:, logger:)
       @index = index

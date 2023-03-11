@@ -10,10 +10,10 @@ module Timer
     end
 
     def update(now_ns, triggerable)
-      if now_ns >= curr_beat_nanos
-        triggerable.trigger
-        step
-      end
+      return unless now_ns >= curr_beat_nanos
+
+      triggerable.trigger
+      step
     end
 
     def step
