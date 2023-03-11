@@ -11,7 +11,7 @@ module Timer
     end
 
     def update(now_ns, triggerable)
-      return unless now_ns >= prev_beat_at
+      return unless now_ns >= next_beat_at
 
       triggerable.trigger
       step
