@@ -30,13 +30,11 @@ module Timer
     end
 
     def initialize(logger:)
+      @bpm = Bpm.new(120)
       @logger = logger
     end
 
     def run
-      bpm = Bpm.new(120)
-      outputs = (0...6).map { |i| Output.new(logger:, index: i) }
-      periodics = (0...6).map { |_| Periodic.new(bpm, Nanos.now.value) }
       5_000_000.times do
         now_ns = Nanos.now.value
         periodics.each_with_index { |p, i| p.update(now_ns, outputs[i]) }
@@ -45,7 +43,15 @@ module Timer
 
     private
 
-    attr_reader :logger
+    attr_reader :bpm, :logger
+
+    def outputs
+      @outputs ||= (0...6).map { |i| Output.new(logger:, index: i) }
+    end
+
+    def periodics
+      @periodics ||= (0...6).map { |_| Periodic.new(bpm, Nanos.now.value) }
+    end
 
     def log(message)
       logger.log(message)
