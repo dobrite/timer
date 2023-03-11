@@ -11,8 +11,11 @@ module Timer
       @next_beat_nanos = curr_beat_nanos + bpm.nanos_per_beat
     end
 
-    def update(now_ns)
-      step if now_ns >= curr_beat_nanos
+    def update(now_ns, triggerable)
+      if now_ns >= curr_beat_nanos
+        triggerable.trigger
+        step
+      end
     end
 
     def step
