@@ -15,6 +15,11 @@ module Timer
 
   def run
     puts "Running!"
+    bpm = Bpm.new(120, Nanos.now.value)
+    5_000_000.times do
+      now_ns = Nanos.now.value
+      bpm.update(now_ns)
+    end
     puts "Done!"
   end
   module_function :run
