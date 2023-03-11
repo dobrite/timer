@@ -8,4 +8,5 @@ gem "minitest", "~> 5.0"
 gem "rake", "~> 13.0"
 gem "rerun"
 gem "rubocop", "~> 1.21"
+gem "rubocop-rake", require: false
 gem "syntax_tree"
