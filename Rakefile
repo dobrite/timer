@@ -2,6 +2,8 @@
 
 require "bundler/gem_tasks"
 require "rake/testtask"
+require "rubocop/rake_task"
+require "syntax_tree/rake_tasks"
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
@@ -9,8 +11,8 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList["test/**/test_*.rb"]
 end
 
-require "rubocop/rake_task"
-
 RuboCop::RakeTask.new
-
 task default: %i[test rubocop]
+
+SyntaxTree::Rake::CheckTask.new
+SyntaxTree::Rake::WriteTask.new
