@@ -4,8 +4,13 @@ require "test_helper"
 
 module Timer
   class TestNanos < Minitest::Test
-    def test_now
-      assert Nanos.now
+    include StubNow
+
+    def test_to_s
+      stub_now do
+        expected = "#{Time.now.to_i}.#{Time.now.nsec}"
+        assert_equal expected, Nanos.now.to_s
+      end
     end
 
     def test_to_millis
