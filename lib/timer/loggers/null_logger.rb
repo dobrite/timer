@@ -4,6 +4,13 @@ module Timer
     class NullLogger
       def log(*)
       end
+
+      def flush
+      end
+      alias trigger flush
+
+      def append(*)
+      end
     end
   end
 end

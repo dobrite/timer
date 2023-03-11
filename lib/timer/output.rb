@@ -7,7 +7,7 @@ module Timer
     end
 
     def trigger
-      logger.log(index.to_s)
+      logger.append(index.to_s)
     end
 
     private
