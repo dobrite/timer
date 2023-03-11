@@ -7,5 +7,9 @@ module Timer
     def test_now
       assert Nano.now
     end
+
+    def test_to_millis
+      assert Nano.now.to_millis
+    end
   end
 end
