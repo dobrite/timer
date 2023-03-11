@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "timer/nano"
-require_relative "timer/milli"
+require_relative "timer/nanos"
+require_relative "timer/millis"
 require_relative "timer/version"
 
 # Times stuff

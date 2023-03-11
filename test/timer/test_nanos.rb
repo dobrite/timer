@@ -3,13 +3,13 @@
 require "test_helper"
 
 module Timer
-  class TestNano < Minitest::Test
+  class TestNanos < Minitest::Test
     def test_now
-      assert Nano.now
+      assert Nanos.now
     end
 
     def test_to_millis
-      assert Nano.now.to_millis
+      assert Nanos.now.to_millis
     end
   end
 end

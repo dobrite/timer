@@ -3,9 +3,9 @@
 require "test_helper"
 
 module Timer
-  class TestMilli < Minitest::Test
+  class TestMillis < Minitest::Test
     def test_now
-      assert Milli.now
+      assert Millis.now
     end
   end
 end

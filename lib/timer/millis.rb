@@ -2,9 +2,9 @@
 
 module Timer
   # Milliseconds
-  class Milli
+  class Millis
     def self.now
-      Timer::Nano.now.to_millis
+      Timer::Nanos.now.to_millis
     end
 
     def initialize(millis)

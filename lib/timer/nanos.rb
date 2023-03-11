@@ -2,7 +2,7 @@
 
 module Timer
   # Nanosecond
-  class Nano
+  class Nanos
     def self.now
       new(Time.now.nsec)
     end
@@ -12,7 +12,7 @@ module Timer
     end
 
     def to_millis
-      Timer::Milli.new(nanos / 1_000)
+      Timer::Millis.new(nanos / 1_000)
     end
 
     private
