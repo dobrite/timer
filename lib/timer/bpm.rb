@@ -5,9 +5,9 @@ module Timer
   class Bpm
     attr_reader :curr_beat_nanos, :next_beat_nanos
 
-    def initialize(bpm)
+    def initialize(bpm, now_ns)
       @bpm = bpm
-      @curr_beat_nanos = Nanos.now.value
+      @curr_beat_nanos = now_ns
       @next_beat_nanos = curr_beat_nanos + nanos_per_beat
     end
 
