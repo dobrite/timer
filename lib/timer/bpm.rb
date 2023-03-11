@@ -1,8 +1,23 @@
 module Timer
   # Bpm stuffs
   class Bpm
-    def initialize(bpm)
+    attr_reader :prev_beat_at, :next_beat_at
+
+    def initialize(bpm, now_ns)
       @bpm = bpm
+      @prev_beat_at = now_ns
+      @next_beat_at = calc_next_beat_at
+    end
+
+    def update(now_ns)
+      return unless now_ns >= next_beat_at
+
+      step
+    end
+
+    def step
+      @prev_beat_at = next_beat_at
+      @next_beat_at = calc_next_beat_at
     end
 
     def nanos_per_beat
@@ -10,6 +25,10 @@ module Timer
     end
 
     private
+
+    def calc_next_beat_at
+      prev_beat_at + nanos_per_beat
+    end
 
     def seconds_per_beat
       SECONDS_PER_MINUTE.to_f / bpm

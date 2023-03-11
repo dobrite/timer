@@ -30,7 +30,8 @@ module Timer
     end
 
     def initialize(logger:)
-      @bpm = Bpm.new(120)
+      now_ns = Nanos.now.value
+      @bpm = Bpm.new(120, now_ns)
       @logger = logger
     end
 
@@ -58,9 +59,8 @@ module Timer
     def periodics
       return @periodics if defined?(@periodics)
 
-      @periodics ||=
-        (0...4).map { |i| Periodic.new(bpm, Nanos.now.value, mult: i + 1) }
-      @periodics << Periodic.new(bpm, Nanos.now.value, mult: 4)
+      @periodics ||= (0...4).map { |i| Periodic.new(bpm, mult: i + 1) }
+      @periodics << Periodic.new(bpm, mult: 4)
       @periodics
     end
 

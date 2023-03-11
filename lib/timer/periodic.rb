@@ -3,10 +3,10 @@ module Timer
   class Periodic
     attr_reader :prev_beat_at, :next_beat_at
 
-    def initialize(bpm, now_ns, mult: 1)
+    def initialize(bpm, mult: 1)
       @bpm = bpm
       @mult = mult
-      @prev_beat_at = now_ns
+      @prev_beat_at = bpm.prev_beat_at
       @next_beat_at = calc_next_beat_at
     end
 
