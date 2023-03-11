@@ -2,7 +2,6 @@
 
 require_relative "timer/bpm"
 require_relative "timer/nanos"
-require_relative "timer/millis"
 require_relative "timer/version"
 
 # Times stuff

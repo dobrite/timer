@@ -13,9 +13,5 @@ module Timer
     def test_to_s
       stub_now { assert_equal NOW_IN_NANOS.to_s, Nanos.now.to_s }
     end
-
-    def test_to_millis
-      assert Nanos.now.to_millis
-    end
   end
 end
