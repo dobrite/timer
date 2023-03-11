@@ -10,9 +10,6 @@ module Timer
   SECONDS_PER_MINUTE = 60
   NANOS_PER_SECOND = 1_000_000_000
 
-  class Error < StandardError
-  end
-
   def run
     puts "Running!"
     bpm = Bpm.new(120, Nanos.now.value)
