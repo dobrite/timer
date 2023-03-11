@@ -2,7 +2,10 @@
 
 require_relative "timer/version"
 
+# Times stuff
 module Timer
-  class Error < StandardError; end
+  class Error < StandardError
+  end
+
   # Your code goes here...
 end
