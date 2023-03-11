@@ -9,8 +9,8 @@ module Timer
         now_ns = Nanos.now.value
         bpm = Bpm.new(120)
         periodic = Periodic.new(bpm, now_ns)
-
         expected = NOW_IN_NANOS
+
         assert_equal expected, periodic.curr_beat_nanos
       end
     end
@@ -20,8 +20,8 @@ module Timer
         now_ns = Nanos.now.value
         bpm = Bpm.new(120)
         periodic = Periodic.new(bpm, now_ns)
-
         expected = NOW_IN_NANOS + (0.5 * NANOS_PER_SECOND).floor
+
         assert_equal expected, periodic.next_beat_nanos
       end
     end
@@ -31,8 +31,8 @@ module Timer
         now_ns = Nanos.now.value
         bpm = Bpm.new(120)
         periodic = Periodic.new(bpm, now_ns).tap(&:step)
-
         expected = NOW_IN_NANOS + (0.5 * NANOS_PER_SECOND).floor
+
         assert_equal expected, periodic.curr_beat_nanos
       end
     end
@@ -42,8 +42,8 @@ module Timer
         now_ns = Nanos.now.value
         bpm = Bpm.new(120)
         periodic = Periodic.new(bpm, now_ns).tap(&:step)
-
         expected = NOW_IN_NANOS + (1.0 * NANOS_PER_SECOND).floor
+
         assert_equal expected, periodic.next_beat_nanos
       end
     end

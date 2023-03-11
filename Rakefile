@@ -9,7 +9,10 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList["test/**/test_*.rb"]
 end
 
-RuboCop::RakeTask.new { |task| task.requires << "rubocop-rake" }
+RuboCop::RakeTask.new do |task|
+  task.requires << "rubocop-minitest"
+  task.requires << "rubocop-rake"
+end
 task default: %i[test rubocop]
 
 SyntaxTree::Rake::CheckTask.new
