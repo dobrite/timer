@@ -6,6 +6,8 @@ require_relative "timer/version"
 
 # Times stuff
 module Timer
+  NANOS_PER_SECOND = 1_000_000_000
+
   class Error < StandardError
   end
 

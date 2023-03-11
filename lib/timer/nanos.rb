@@ -17,7 +17,7 @@ module Timer
     end
 
     def value
-      sec * 1_000_000_000 + nsec
+      sec * NANOS_PER_SECOND + nsec
     end
 
     def to_s
