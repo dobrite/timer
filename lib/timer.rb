@@ -5,6 +5,8 @@ require_relative "timer/nanos"
 require_relative "timer/periodic"
 require_relative "timer/version"
 require_relative "timer/output"
+require_relative "timer/loggers/logger"
+require_relative "timer/loggers/null_logger"
 
 # Times stuff
 module Timer
@@ -12,21 +14,14 @@ module Timer
   NANOS_PER_SECOND = 1_000_000_000
 
   def run
-    logger = ENV["TIMER_ENV"] == "test" ? NullLogger.new : Logger.new
     Simulator.run(logger:)
   end
   module_function :run
 
-  class NullLogger
-    def log(*)
-    end
+  def logger
+    ENV["TIMER_ENV"] == "test" ? Loggers::NullLogger.new : Loggers::Logger.new
   end
-
-  class Logger
-    def log(message)
-      puts message
-    end
-  end
+  module_function :logger
 
   class Simulator
     def self.run(logger:)
