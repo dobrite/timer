@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
+  spec.add_development_dependency "debug", ">= 1.0.0"
   spec.add_development_dependency "rerun"
   spec.add_development_dependency "syntax_tree"
 
