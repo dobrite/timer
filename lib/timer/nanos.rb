@@ -16,8 +16,12 @@ module Timer
       Timer::Millis.new(nsec / 1_000)
     end
 
+    def value
+      sec * 1_000_000_000 + nsec
+    end
+
     def to_s
-      "#{sec}.#{nsec}"
+      value.to_s
     end
 
     private

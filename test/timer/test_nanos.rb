@@ -6,11 +6,12 @@ module Timer
   class TestNanos < Minitest::Test
     include StubNow
 
+    def test_value
+      stub_now { assert_equal NOW_IN_NANOS, Nanos.now.value }
+    end
+
     def test_to_s
-      stub_now do
-        expected = "#{Time.now.to_i}.#{Time.now.nsec}"
-        assert_equal expected, Nanos.now.to_s
-      end
+      stub_now { assert_equal NOW_IN_NANOS.to_s, Nanos.now.to_s }
     end
 
     def test_to_millis
