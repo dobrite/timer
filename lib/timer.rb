@@ -24,7 +24,9 @@ module Timer
   # Simulates everything running
   class Simulator
     def self.run(logger:)
+      logger.log "Running!"
       new(logger:).run
+      logger.log "Done!"
     end
 
     def initialize(logger:)
@@ -32,7 +34,6 @@ module Timer
     end
 
     def run
-      log "Running!"
       bpm = Bpm.new(120)
       outputs = (0...6).map { |i| Output.new(logger:, index: i) }
       periodics = (0...6).map { |_| Periodic.new(bpm, Nanos.now.value) }
@@ -40,7 +41,6 @@ module Timer
         now_ns = Nanos.now.value
         periodics.each_with_index { |p, i| p.update(now_ns, outputs[i]) }
       end
-      log "Done!"
     end
 
     private
