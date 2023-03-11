@@ -2,6 +2,7 @@
 
 require_relative "timer/bpm"
 require_relative "timer/nanos"
+require_relative "timer/periodic"
 require_relative "timer/version"
 
 # Times stuff
@@ -37,10 +38,11 @@ module Timer
 
     def run
       log "Running!"
-      bpm = Bpm.new(120, Nanos.now.value)
+      bpm = Bpm.new(120)
+      periodic = Periodic.new(bpm, Nanos.now.value)
       5_000_000.times do
         now_ns = Nanos.now.value
-        bpm.update(now_ns)
+        periodic.update(now_ns)
       end
       log "Done!"
     end
