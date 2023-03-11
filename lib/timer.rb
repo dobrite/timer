@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative "timer/bpm"
 require_relative "timer/nanos"
 require_relative "timer/periodic"

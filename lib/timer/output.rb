@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Timer
   class Output
     def initialize(index:, logger:)
