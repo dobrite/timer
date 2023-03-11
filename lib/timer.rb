@@ -9,5 +9,9 @@ module Timer
   class Error < StandardError
   end
 
-  # Your code goes here...
+  def run
+    puts "Running!"
+    puts "Done!"
+  end
+  module_function :run
 end
