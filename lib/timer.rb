@@ -10,13 +10,47 @@ module Timer
   NANOS_PER_SECOND = 1_000_000_000
 
   def run
-    puts "Running!"
-    bpm = Bpm.new(120, Nanos.now.value)
-    5_000_000.times do
-      now_ns = Nanos.now.value
-      bpm.update(now_ns)
-    end
-    puts "Done!"
+    logger = ENV["TIMER_ENV"] == "test" ? NullLogger.new : Logger.new
+    Simulator.run(logger:)
   end
   module_function :run
+
+  class NullLogger
+    def log(*)
+    end
+  end
+
+  class Logger
+    def log(message)
+      puts message
+    end
+  end
+
+  class Simulator
+    def self.run(logger:)
+      new(logger:).run
+    end
+
+    def initialize(logger:)
+      @logger = logger
+    end
+
+    def run
+      log "Running!"
+      bpm = Bpm.new(120, Nanos.now.value)
+      5_000_000.times do
+        now_ns = Nanos.now.value
+        bpm.update(now_ns)
+      end
+      log "Done!"
+    end
+
+    private
+
+    attr_reader :logger
+
+    def log(message)
+      logger.log(message)
+    end
+  end
 end

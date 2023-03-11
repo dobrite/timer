@@ -6,6 +6,8 @@ require "timer"
 
 require "minitest/autorun"
 
+ENV["TIMER_ENV"] ||= "test"
+
 module StubNow
   # 2023-03-11 07:27:49 2284889/4194304 -0800
   FROZEN_IN_TIME = 1_678_548_469.54_476
