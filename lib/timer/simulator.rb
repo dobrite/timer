@@ -33,13 +33,14 @@ module Timer
     def run
       iterations.times do
         now_ns = Nanos.now.value
-        periodics.each_with_index do |p, i|
-          if i == periodics.length - 1
-            p.update(now_ns, logger)
-          else
-            p.update(now_ns, outputs[i])
-          end
-        end
+        bpm.update(now_ns, logger)
+        #periodics.each_with_index do |p, i|
+        #  if i == periodics.length - 1
+        #    p.update(now_ns, logger)
+        #  else
+        #    p.update(now_ns, outputs[i])
+        #  end
+        #end
       end
     end
 
