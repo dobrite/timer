@@ -5,8 +5,7 @@ module Timer
     include StubNow
 
     def test_nanos_per_beat
-      now = Nanos.now
-      bpm = Bpm.new(120, now)
+      bpm = Bpm.new(120)
       expected = 500_000_000
 
       assert_equal expected, bpm.nanos_per_beat
@@ -14,8 +13,7 @@ module Timer
 
     def test_new_prev_beat_at
       stub_now do
-        now = Nanos.now
-        bpm = Bpm.new(120, now)
+        bpm = Bpm.new(120)
 
         assert_nil bpm.prev_beat_at
       end
@@ -24,17 +22,20 @@ module Timer
     def test_new_next_beat_at
       stub_now do
         now = Nanos.now
-        bpm = Bpm.new(120, now)
+        bpm = Bpm.new(120)
+        bpm.start(now)
         expected = now
 
         assert_equal expected, bpm.next_beat_at
       end
     end
 
-    def test_step_prev_beat_at
+    def test_update_prev_beat_at
       stub_now do
         now = Nanos.now
-        bpm = Bpm.new(120, now).tap(&:step)
+        bpm = Bpm.new(120)
+        bpm.start(now)
+        bpm.update(now)
 
         elapsed_seconds = 0
         nanos = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
@@ -44,10 +45,12 @@ module Timer
       end
     end
 
-    def test_step_next_beat_at
+    def test_update_next_beat_at
       stub_now do
         now = Nanos.now
-        bpm = Bpm.new(120, now).tap(&:step)
+        bpm = Bpm.new(120)
+        bpm.start(now)
+        bpm.update(now)
 
         elapsed_seconds = 0.5
         nanos = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor

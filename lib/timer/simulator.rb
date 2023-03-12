@@ -26,23 +26,32 @@ module Timer
     end
 
     def initialize(logger:, iterations:)
-      now = Nanos.now
-      @bpm = Bpm.new(120, now)
+      @bpm = Bpm.new(120)
       @logger = logger
       @iterations = iterations
     end
 
     def run
+      start
+      loop
+    end
+
+    private
+
+    attr_reader :bpm, :iterations, :logger
+
+    def start
+      now = Nanos.now
+      bpm.start(now)
+    end
+
+    def loop
       iterations.times do
         now = Nanos.now
         bpm.update(now)
         run_periodics(now)
       end
     end
-
-    private
-
-    attr_reader :bpm, :iterations, :logger
 
     def run_periodics(now)
       periodics.each_with_index do |p, i|
