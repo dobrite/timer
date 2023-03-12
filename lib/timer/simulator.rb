@@ -3,19 +3,21 @@ module Timer
   class Simulator
     class << self
       def run
-        logger.log "Running!"
-        new(logger:, iterations:).run
-        logger.log "Done!"
+        new(**config).run
       end
 
       private
 
-      def logger
-        test? ? Loggers::NullLogger.new : Loggers::Logger.new
+      def config
+        test? ? test_config : run_config
       end
 
-      def iterations
-        test? ? 100_000 : 5_000_000
+      def run_config
+        { iterations: 5_000_000, logger: Loggers::Logger.new }
+      end
+
+      def test_config
+        { iterations: 100_000, logger: Loggers::NullLogger.new }
       end
 
       def test?
