@@ -5,8 +5,8 @@ module Timer
 
     def initialize(bpm, now_ns)
       @bpm = bpm
-      @prev_beat_at = now_ns
-      @next_beat_at = calc_next_beat_at
+      @prev_beat_at = nil
+      @next_beat_at = now_ns
     end
 
     def update(now_ns, triggerable)
