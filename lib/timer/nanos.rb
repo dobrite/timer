@@ -9,7 +9,14 @@ module Timer
       end
 
       def from(nsec)
-        new(sec: nsec / NANOS_PER_SECOND, nsec: nsec % NANOS_PER_SECOND)
+        case nsec
+        when Integer
+          new(sec: nsec / NANOS_PER_SECOND, nsec: nsec % NANOS_PER_SECOND)
+        when Nanos
+          nsec
+        else
+          raise "do not know how to create Nanos from #{other.class}"
+        end
       end
     end
 
@@ -35,10 +42,11 @@ module Timer
     end
 
     def +(other)
-      nsecs = nsec + other.nsec
+      nano = Nanos.from(other)
+      nsecs = nsec + nano.nsec
       carry = nsecs / NANOS_PER_SECOND
 
-      Nanos.new(sec: sec + other.sec + carry, nsec: nsecs % NANOS_PER_SECOND)
+      Nanos.new(sec: sec + nano.sec + carry, nsec: nsecs % NANOS_PER_SECOND)
     end
 
     protected

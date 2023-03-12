@@ -29,7 +29,7 @@ module Timer
     end
 
     def calc_next_beat_at
-      prev_beat_at + Nanos.from(nanos_per_beat)
+      prev_beat_at + nanos_per_beat
     end
 
     def seconds_per_beat

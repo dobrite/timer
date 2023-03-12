@@ -18,8 +18,7 @@ module Timer
     def next_beat_at(now)
       @next_beat_at ||=
         begin
-          nanos_per_unit =
-            Nanos.from (bpm.nanos_per_beat * (1 / mult.to_f)).floor
+          nanos_per_unit = (bpm.nanos_per_beat * (1 / mult.to_f)).floor
           next_beat_at = bpm.next_beat_at
           next_beat_at += nanos_per_unit while next_beat_at < now
           next_beat_at

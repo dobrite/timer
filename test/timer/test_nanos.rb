@@ -16,9 +16,16 @@ module Timer
       stub_now { assert_equal FROZEN_IN_TIME, Nanos.now.to_f }
     end
 
-    def test_from
+    def test_from_integer
       actual = Nanos.from(2_000_002_000)
       expected = Nanos.new(sec: 2, nsec: 2000)
+
+      assert_equal expected, actual
+    end
+
+    def test_from_nanos
+      expected = Nanos.new(sec: 2, nsec: 2000)
+      actual = Nanos.from(expected)
 
       assert_equal expected, actual
     end
