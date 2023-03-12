@@ -3,14 +3,14 @@ module Timer
   class Bpm
     attr_reader :prev_beat_at, :next_beat_at
 
-    def initialize(bpm, now_ns)
+    def initialize(bpm, now)
       @bpm = bpm
       @prev_beat_at = nil
-      @next_beat_at = now_ns
+      @next_beat_at = now
     end
 
-    def update(now_ns, triggerable)
-      return unless now_ns >= next_beat_at
+    def update(now, triggerable)
+      return unless now >= next_beat_at
 
       triggerable.log("!")
       step

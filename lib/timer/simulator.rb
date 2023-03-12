@@ -24,21 +24,21 @@ module Timer
     end
 
     def initialize(logger:, iterations:)
-      now_ns = Nanos.now.value
-      @bpm = Bpm.new(120, now_ns)
+      now = Nanos.now
+      @bpm = Bpm.new(120, now)
       @logger = logger
       @iterations = iterations
     end
 
     def run
       iterations.times do
-        now_ns = Nanos.now.value
-        bpm.update(now_ns, logger)
+        now = Nanos.now
+        bpm.update(now, logger)
         #periodics.each_with_index do |p, i|
         #  if i == periodics.length - 1
-        #    p.update(now_ns, logger)
+        #    p.update(now, logger)
         #  else
-        #    p.update(now_ns, outputs[i])
+        #    p.update(now, outputs[i])
         #  end
         #end
       end

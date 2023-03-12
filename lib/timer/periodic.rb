@@ -10,8 +10,8 @@ module Timer
       @next_beat_at = calc_next_beat_at
     end
 
-    def update(now_ns, triggerable)
-      return unless now_ns >= next_beat_at
+    def update(now, triggerable)
+      return unless now >= next_beat_at
 
       triggerable.trigger
       step

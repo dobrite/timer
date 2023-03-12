@@ -5,8 +5,8 @@ module Timer
     include StubNow
 
     def test_nanos_per_beat
-      now_ns = Nanos.now.value
-      bpm = Bpm.new(120, now_ns)
+      now = Nanos.now
+      bpm = Bpm.new(120, now)
       expected = 500_000_000
 
       assert_equal expected, bpm.nanos_per_beat
