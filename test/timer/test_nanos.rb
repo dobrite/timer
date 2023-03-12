@@ -48,10 +48,26 @@ module Timer
 
     def test_addition_carry
       one = Nanos.new(sec: 0, nsec: 999_999_000)
-      two = Nanos.new(sec: 0, nsec: 1000)
+      two = Nanos.new(sec: 0, nsec: 1_000)
       expected = Nanos.new(sec: 1, nsec: 0)
 
       assert_equal(expected, (one + two))
+    end
+
+    def test_subtraction
+      one = Nanos.new(sec: 1, nsec: 1)
+      two = Nanos.new(sec: 0, nsec: 1)
+      expected = Nanos.new(sec: 1, nsec: 0)
+
+      assert_equal expected, (one - two)
+    end
+
+    def test_subtraction_carry
+      one = Nanos.new(sec: 1, nsec: 0)
+      two = Nanos.new(sec: 0, nsec: 1_000)
+      expected = Nanos.new(sec: 0, nsec: 999_999_000)
+
+      assert_equal expected, (one - two)
     end
   end
 end

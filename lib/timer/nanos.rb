@@ -49,6 +49,14 @@ module Timer
       Nanos.new(sec: sec + nano.sec + carry, nsec: nsecs % NANOS_PER_SECOND)
     end
 
+    def -(other)
+      nano = Nanos.from(other)
+      borrow = nsec > nano.nsec ? 1 : 0
+      nsecs = (borrow * NANOS_PER_SECOND) + nsec - nano.nsec
+
+      Nanos.new(sec: sec - nano.sec - borrow, nsec: nsecs)
+    end
+
     protected
 
     attr_accessor :sec, :nsec
