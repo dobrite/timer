@@ -38,7 +38,7 @@ module Timer
     end
 
     def <=>(other)
-      value <=> other.value
+      value <=> Nanos.from(other).value
     end
 
     def +(other)

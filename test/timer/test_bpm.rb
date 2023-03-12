@@ -38,8 +38,7 @@ module Timer
         bpm.update(now)
 
         elapsed_seconds = 0
-        nanos = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
-        expected = Nanos.from(nanos)
+        expected = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
 
         assert_equal expected, bpm.prev_beat_at
       end
@@ -53,8 +52,7 @@ module Timer
         bpm.update(now)
 
         elapsed_seconds = 0.5
-        nanos = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
-        expected = Nanos.from(nanos)
+        expected = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
 
         assert_equal expected, bpm.next_beat_at
       end
