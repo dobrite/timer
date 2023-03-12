@@ -9,6 +9,7 @@ module Timer
 
     def start(now)
       @next_beat_at = now
+      @prev_beat_at = now - nanos_per_beat
     end
 
     def update(now)

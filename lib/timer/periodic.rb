@@ -11,14 +11,12 @@ module Timer
 
       triggerable.trigger
       clear
-
-      next_beat_at(now)
     end
 
     def next_beat_at(now)
       @next_beat_at ||=
         begin
-          next_beat_at = bpm.next_beat_at
+          next_beat_at = bpm.prev_beat_at
           next_beat_at += nanos_per_unit while next_beat_at < now
           next_beat_at
         end
