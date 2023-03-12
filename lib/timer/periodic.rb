@@ -1,31 +1,34 @@
 module Timer
   # Periodic Timers
   class Periodic
-    attr_reader :prev_beat_at, :next_beat_at
-
     def initialize(bpm, mult: 1)
       @bpm = bpm
       @mult = mult
-      @prev_beat_at = bpm.prev_beat_at
-      @next_beat_at = calc_next_beat_at
     end
 
     def update(now, triggerable)
-      return unless now >= next_beat_at
+      return unless now >= next_beat_at(now)
 
       triggerable.trigger
-      step
+      clear
+
+      next_beat_at(now)
     end
 
-    def step
-      @prev_beat_at = next_beat_at
-      @next_beat_at = calc_next_beat_at
+    def next_beat_at(now)
+      @next_beat_at ||=
+        begin
+          nanos_per_unit = (bpm.nanos_per_beat * (1 / mult.to_f)).floor
+          next_beat_at = bpm.next_beat_at
+          next_beat_at += nanos_per_unit while next_beat_at < now
+          next_beat_at
+        end
     end
 
     private
 
-    def calc_next_beat_at
-      prev_beat_at + (bpm.nanos_per_beat * (1 / mult.to_f)).floor
+    def clear
+      @next_beat_at = nil
     end
 
     attr_reader :bpm, :mult
