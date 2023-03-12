@@ -27,6 +27,10 @@ module Timer
       @mult = new_mult
     end
 
+    def bpm_changed!
+      clear
+    end
+
     private
 
     def nanos_per_unit

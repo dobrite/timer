@@ -22,6 +22,11 @@ module Timer
       (seconds_per_beat * NANOS_PER_SECOND).floor
     end
 
+    def bpm=(new_bpm)
+      @bpm = new_bpm
+      @next_beat_at = calc_next_beat_at
+    end
+
     private
 
     def step
