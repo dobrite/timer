@@ -68,7 +68,7 @@ module Timer
     end
 
     def periodics
-      @periodics ||= [Periodic.new(bpm, mult: 1), Periodic.new(bpm, mult: 1)]
+      @periodics ||= [Periodic.new(bpm, mult: 1), Periodic.new(bpm, mult: 4)]
     end
 
     def log(message)
