@@ -10,9 +10,8 @@ module Timer
         bpm = Bpm.new(120)
         bpm.start(now)
         periodic = Periodic.new(bpm)
-        expected = now_in_nanos
 
-        assert_equal expected, periodic.next_beat_at(now)
+        assert_equal now, periodic.next_beat_at(now)
       end
     end
 

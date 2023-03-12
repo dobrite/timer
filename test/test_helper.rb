@@ -12,6 +12,6 @@ module StubNow
   NOW_IN_NANOS = 1_678_548_469_544_759_988
 
   def stub_now(now = FROZEN_IN_TIME, &)
-    Time.stub(:now, Time.at(now), &)
+    Time.stub(:now, Time.at(now.to_f), &)
   end
 end
