@@ -64,11 +64,18 @@ module Timer
     end
 
     def outputs
-      @outputs ||= [Output.new(logger:, name: "!")]
+      @outputs ||= [
+        Output.new(logger:, name: "!"),
+        Output.new(logger:, name: "0")
+      ]
     end
 
     def periodics
-      @periodics ||= [Periodic.new(bpm, mult: 1), Periodic.new(bpm, mult: 4)]
+      @periodics ||= [
+        Periodic.new(bpm, mult: 1),
+        Periodic.new(bpm, mult: 2),
+        Periodic.new(bpm, mult: 4)
+      ]
     end
 
     def log(message)
