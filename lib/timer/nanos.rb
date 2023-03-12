@@ -3,8 +3,14 @@ module Timer
   class Nanos
     include Comparable
 
-    def self.now
-      new(sec: Time.now.to_i, nsec: Time.now.nsec)
+    class << self
+      def now
+        new(sec: Time.now.to_i, nsec: Time.now.nsec)
+      end
+
+      def from(nsec)
+        new(sec: nsec / NANOS_PER_SECOND, nsec: nsec % NANOS_PER_SECOND)
+      end
     end
 
     def initialize(sec:, nsec:)

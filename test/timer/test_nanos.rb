@@ -12,6 +12,13 @@ module Timer
       stub_now { assert_equal NOW_IN_NANOS.to_s, Nanos.now.to_s }
     end
 
+    def test_from
+      actual = Nanos.from(2_000_002_000)
+      expected = Nanos.new(sec: 2, nsec: 2000)
+
+      assert_equal expected, actual
+    end
+
     def test_comparable
       now = Nanos.now
       sleep(0.1)
