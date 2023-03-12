@@ -24,8 +24,15 @@ module Timer
       value <=> other.value
     end
 
-    private
+    def +(other)
+      nsecs = nsec + other.nsec
+      carry = nsecs / NANOS_PER_SECOND
 
-    attr_reader :sec, :nsec
+      Nanos.new(sec: sec + other.sec + carry, nsec: nsecs % NANOS_PER_SECOND)
+    end
+
+    protected
+
+    attr_accessor :sec, :nsec
   end
 end
