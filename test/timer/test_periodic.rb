@@ -36,6 +36,18 @@ module Timer
       assert_equal expected, periodic.next_beat_at(new_now)
     end
 
+    def test_mult_setter
+      p = periodic
+
+      assert_equal now, p.next_beat_at(now)
+
+      p.mult = 4
+      new_now = now + 1
+      new_expected = now + 125_000_000
+
+      assert_equal new_expected, p.next_beat_at(new_now)
+    end
+
     private
 
     def periodic(mult: 1)

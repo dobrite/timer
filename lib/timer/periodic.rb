@@ -22,6 +22,11 @@ module Timer
         end
     end
 
+    def mult=(new_mult)
+      clear
+      @mult = new_mult
+    end
+
     private
 
     def nanos_per_unit
