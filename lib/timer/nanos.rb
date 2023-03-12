@@ -10,10 +10,6 @@ module Timer
       @nsec = nsec
     end
 
-    def to_millis
-      Timer::Millis.new(nsec / 1_000)
-    end
-
     def value
       (sec * NANOS_PER_SECOND) + nsec
     end
