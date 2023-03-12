@@ -36,13 +36,7 @@ module Timer
       iterations.times do
         now = Nanos.now
         bpm.update(now)
-        #periodics.each_with_index do |p, i|
-        #  if i == periodics.length - 1
-        #    p.update(now, logger)
-        #  else
-        #    p.update(now, outputs[i])
-        #  end
-        #end
+        run_periodics(now)
       end
     end
 
@@ -50,16 +44,22 @@ module Timer
 
     attr_reader :bpm, :iterations, :logger
 
+    def run_periodics(now)
+      periodics.each_with_index do |p, i|
+        if i == periodics.length - 1
+          p.update(now, logger)
+        else
+          p.update(now, outputs[i])
+        end
+      end
+    end
+
     def outputs
-      @outputs ||= (0...4).map { |i| Output.new(logger:, name: i.to_s) }
+      @outputs ||= [Output.new(logger:, name: "!")]
     end
 
     def periodics
-      return @periodics if defined?(@periodics)
-
-      @periodics ||= (0...4).map { |i| Periodic.new(bpm, mult: i + 1) }
-      @periodics << Periodic.new(bpm, mult: 4)
-      @periodics
+      @periodics ||= [Periodic.new(bpm, mult: 1), Periodic.new(bpm, mult: 1)]
     end
 
     def log(message)
