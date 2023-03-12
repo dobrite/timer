@@ -5,17 +5,16 @@ module Timer
     include StubNow
 
     def test_new_next_beat_at
-      stub_now now do
-        now = Nanos.now
-        bpm = Bpm.new(120)
-        bpm.start(now)
-        periodic = Periodic.new(bpm)
-
-        assert_equal now, periodic.next_beat_at(now)
-      end
+      assert_equal now, periodic.next_beat_at(now)
     end
 
     private
+
+    def periodic
+      bpm = Bpm.new(120)
+      bpm.start(now)
+      Periodic.new(bpm)
+    end
 
     def now
       Time.new(2023, 1, 1, 12, 0, 0, "UTC").to_i
