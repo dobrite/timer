@@ -13,11 +13,25 @@ module Timer
       end
 
       def run_config
-        { iterations: 5_000_000, logger: Loggers::Logger.new }
+        { iterations: 3_000_000, logger: Loggers::Logger.new, interactions: }
       end
 
       def test_config
-        { iterations: 100_000, logger: Loggers::NullLogger.new }
+        {
+          iterations: 100_000,
+          logger: Loggers::NullLogger.new,
+          interactions: []
+        }
+      end
+
+      def interactions
+        [
+          Interaction.new(300_000..600_000, ->(sim) { sim.change_bpm(30) }),
+          Interaction.new(
+            600_000..1_200_000,
+            ->(sim) { sim.periodics[1].mult = 4 }
+          )
+        ]
       end
 
       def test?
@@ -25,10 +39,11 @@ module Timer
       end
     end
 
-    def initialize(logger:, iterations:)
+    def initialize(logger:, iterations:, interactions:)
       @bpm = Bpm.new(120)
       @logger = logger
       @iterations = iterations
+      @interactions = interactions
     end
 
     def run
@@ -36,9 +51,22 @@ module Timer
       loop
     end
 
+    def change_bpm(new_bpm)
+      bpm.bpm = new_bpm
+      periodics.each(&:bpm_changed!)
+    end
+
+    def periodics
+      @periodics ||= [
+        Periodic.new(bpm, mult: 1),
+        Periodic.new(bpm, mult: 1),
+        Periodic.new(bpm, mult: 4)
+      ]
+    end
+
     private
 
-    attr_reader :bpm, :iterations, :logger
+    attr_reader :bpm, :interactions, :iterations, :logger
 
     def start
       now = Nanos.now
@@ -46,10 +74,11 @@ module Timer
     end
 
     def loop
-      iterations.times do
+      iterations.times do |t|
         now = Nanos.now
         bpm.update(now)
         run_periodics(now)
+        run_interactions(t)
       end
     end
 
@@ -63,18 +92,14 @@ module Timer
       end
     end
 
+    def run_interactions(iteration)
+      interactions.each { |i| i.update(iteration, self) }
+    end
+
     def outputs
       @outputs ||= [
         Output.new(logger:, name: "!"),
         Output.new(logger:, name: "0")
-      ]
-    end
-
-    def periodics
-      @periodics ||= [
-        Periodic.new(bpm, mult: 1),
-        Periodic.new(bpm, mult: 2),
-        Periodic.new(bpm, mult: 4)
       ]
     end
 

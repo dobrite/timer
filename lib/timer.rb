@@ -1,4 +1,5 @@
 require_relative "timer/bpm"
+require_relative "timer/interaction"
 require_relative "timer/nanos"
 require_relative "timer/output"
 require_relative "timer/periodic"
