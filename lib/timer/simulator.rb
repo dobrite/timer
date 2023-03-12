@@ -49,7 +49,7 @@ module Timer
     attr_reader :bpm, :iterations, :logger
 
     def outputs
-      @outputs ||= (0...4).map { |i| Output.new(logger:, index: i) }
+      @outputs ||= (0...4).map { |i| Output.new(logger:, name: i.to_s) }
     end
 
     def periodics
