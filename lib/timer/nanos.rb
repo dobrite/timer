@@ -1,6 +1,8 @@
 module Timer
   # Nanosecond
   class Nanos
+    include Comparable
+
     def self.now
       new(sec: Time.now.to_i, nsec: Time.now.nsec)
     end
@@ -16,6 +18,10 @@ module Timer
 
     def to_s
       value.to_s
+    end
+
+    def <=>(other)
+      value <=> other.value
     end
 
     private
