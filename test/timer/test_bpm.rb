@@ -33,9 +33,8 @@ module Timer
 
     def test_step_prev_beat_at
       stub_now do
-        tempo = 120
         now = Nanos.now
-        bpm = Bpm.new(tempo, now).tap(&:step)
+        bpm = Bpm.new(120, now).tap(&:step)
 
         elapsed_seconds = 0
         nanos = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
@@ -47,10 +46,8 @@ module Timer
 
     def test_step_next_beat_at
       stub_now do
-        tempo = 120
         now = Nanos.now
-        bpm = Bpm.new(tempo, now)
-        bpm.step
+        bpm = Bpm.new(120, now).tap(&:step)
 
         elapsed_seconds = 0.5
         nanos = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
