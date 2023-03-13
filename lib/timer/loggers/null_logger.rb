@@ -9,7 +9,7 @@ module Timer
       end
       alias trigger flush
 
-      def append(*)
+      def write(*)
       end
     end
   end

@@ -93,12 +93,10 @@ module Timer
     end
 
     def outputs
-      @outputs ||= [
-        Output.new(logger:, name: "!"),
-        Output.new(logger:, name: "0"),
-        Output.new(logger:, name: "1"),
-        Output.new(logger:, name: "2")
-      ]
+      @outputs ||=
+        %w[! 0 1 2].map.with_index do |name, index|
+          Output.new(logger:, index:, name:)
+        end
     end
 
     def log(message)

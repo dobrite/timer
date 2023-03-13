@@ -3,7 +3,7 @@ module Timer
     # Logger to log to STDOUT via puts
     class Logger
       def initialize
-        @buffer = []
+        clear
       end
 
       def log(message)
@@ -11,13 +11,19 @@ module Timer
       end
 
       def flush
-        puts @buffer.join(" ")
-        @buffer = []
+        puts @buffer
+        clear
       end
       alias trigger flush
 
-      def append(message)
-        @buffer << message
+      def write(index, message)
+        @buffer[index * 2] = message
+      end
+
+      private
+
+      def clear
+        @buffer = " " * 10
       end
     end
   end

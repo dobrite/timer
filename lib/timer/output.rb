@@ -1,17 +1,18 @@
 module Timer
   # A simulated output
   class Output
-    def initialize(name:, logger:)
+    def initialize(name:, index:, logger:)
       @name = name
+      @index = index
       @logger = logger
     end
 
     def trigger
-      logger.append(name.to_s)
+      logger.write(index, name.to_s)
     end
 
     private
 
-    attr_reader :logger, :name
+    attr_reader :index, :logger, :name
   end
 end
