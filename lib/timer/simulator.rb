@@ -29,7 +29,7 @@ module Timer
           Interaction.new(300_000..600_000, ->(sim) { sim.change_bpm(30) }),
           Interaction.new(
             600_000..1_200_000,
-            ->(sim) { sim.periodics[1].mult = 4 }
+            ->(sim) { sim.periodics[2].mult = 4 }
           )
         ]
       end
@@ -59,7 +59,8 @@ module Timer
     def periodics
       @periodics ||= [
         Periodic.new(bpm, mult: 1),
-        Periodic.new(bpm, mult: 1),
+        Periodic.new(bpm, mult: 0.5),
+        Periodic.new(bpm, mult: 2),
         Periodic.new(bpm, mult: 4)
       ]
     end
@@ -99,7 +100,9 @@ module Timer
     def outputs
       @outputs ||= [
         Output.new(logger:, name: "!"),
-        Output.new(logger:, name: "0")
+        Output.new(logger:, name: "0"),
+        Output.new(logger:, name: "1"),
+        Output.new(logger:, name: "2")
       ]
     end
 
