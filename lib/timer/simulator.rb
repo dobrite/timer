@@ -47,7 +47,6 @@ module Timer
     end
 
     def run
-      start
       loop
     end
 
@@ -69,14 +68,10 @@ module Timer
 
     attr_reader :bpm, :interactions, :iterations, :logger
 
-    def start
-      now = Nanos.now
-      bpm.start(now)
-    end
-
     def loop
       iterations.times do |t|
         now = Nanos.now
+        bpm.start(now) unless bpm.running?
         bpm.update(now)
         run_periodics(now)
         run_interactions(t)

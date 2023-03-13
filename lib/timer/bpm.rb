@@ -5,11 +5,17 @@ module Timer
 
     def initialize(bpm)
       @bpm = bpm
+      @running = false
     end
 
     def start(now)
       @next_beat_at = now
       @prev_beat_at = now - nanos_per_beat
+      @running = true
+    end
+
+    def running?
+      @running
     end
 
     def update(now)
