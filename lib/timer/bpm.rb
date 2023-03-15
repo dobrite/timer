@@ -51,7 +51,7 @@ module Timer
     end
 
     def seconds_per_beat
-      SECONDS_PER_MINUTE.to_f / bpm
+      SECONDS_PER_MINUTE.to_f / bpm / resolution
     end
 
     attr_reader :bpm

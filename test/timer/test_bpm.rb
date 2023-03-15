@@ -6,7 +6,7 @@ module Timer
 
     def test_nanos_per_beat
       bpm = Bpm.new(120)
-      expected = 500_000_000
+      expected = 500_000_000 / bpm.resolution
 
       assert_equal expected, bpm.nanos_per_beat
     end
@@ -51,7 +51,7 @@ module Timer
         bpm.start(now)
         bpm.update(now)
 
-        elapsed_seconds = 0.5
+        elapsed_seconds = 0.5 / bpm.resolution.to_f
         expected = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
 
         assert_equal expected, bpm.next_beat_at
