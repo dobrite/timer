@@ -4,12 +4,13 @@ module Timer
     class Periodic
       attr_writer :mult
 
-      def initialize(mult: 1)
+      def initialize(triggerable, mult: 1)
+        @triggerable = triggerable
         @mult = mult
         @count = 0
       end
 
-      def update(triggerable)
+      def update
         return unless (@count += 1) == mult
 
         triggerable.trigger
@@ -19,7 +20,7 @@ module Timer
 
       private
 
-      attr_reader :mult
+      attr_reader :mult, :triggerable
     end
   end
 end
