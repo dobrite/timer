@@ -12,7 +12,7 @@ module Timer
       end
 
       def trigger
-        return unless (@count += 1) == mult
+        return unless (@count += 1) == trigger_count
 
         triggerable.trigger
 
@@ -20,6 +20,10 @@ module Timer
       end
 
       private
+
+      def trigger_count
+        resolution / mult.to_f
+      end
 
       attr_reader :resolution, :mult, :triggerable
     end
