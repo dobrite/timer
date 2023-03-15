@@ -7,6 +7,7 @@ require_relative "timer/simulator"
 require_relative "timer/version"
 require_relative "timer/loggers/logger"
 require_relative "timer/loggers/null_logger"
+require_relative "timer/triggers/fan_out"
 
 # Times stuff
 module Timer
