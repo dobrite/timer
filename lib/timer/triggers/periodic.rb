@@ -4,7 +4,8 @@ module Timer
     class Periodic
       attr_writer :mult
 
-      def initialize(triggerable, mult: 1)
+      def initialize(resolution, triggerable, mult: 1)
+        @resolution = resolution
         @triggerable = triggerable
         @mult = mult
         @count = 0
@@ -20,7 +21,7 @@ module Timer
 
       private
 
-      attr_reader :mult, :triggerable
+      attr_reader :resolution, :mult, :triggerable
     end
   end
 end

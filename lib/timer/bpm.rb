@@ -35,6 +35,10 @@ module Timer
       @next_beat_at = calc_next_beat_at
     end
 
+    def resolution
+      24
+    end
+
     private
 
     def step

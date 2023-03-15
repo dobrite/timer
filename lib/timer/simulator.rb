@@ -60,10 +60,10 @@ module Timer
 
     def triggers
       @triggers ||= [
-        Triggers::Periodic.new(outputs[0], mult: 1),
-        Triggers::Periodic.new(outputs[1], mult: 2),
-        Triggers::Periodic.new(outputs[2], mult: 4),
-        Triggers::Periodic.new(outputs[3], mult: 8)
+        Triggers::Periodic.new(bpm.resolution, outputs[0], mult: 1),
+        Triggers::Periodic.new(bpm.resolution, outputs[1], mult: 2),
+        Triggers::Periodic.new(bpm.resolution, outputs[2], mult: 4),
+        Triggers::Periodic.new(bpm.resolution, outputs[3], mult: 8)
       ]
     end
 
