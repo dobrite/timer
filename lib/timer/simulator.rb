@@ -29,7 +29,7 @@ module Timer
           Interaction.new(300_000..600_000, ->(sim) { sim.change_bpm(30) }),
           Interaction.new(
             600_000..1_200_000,
-            ->(sim) { sim.periodics[2].mult = 4 }
+            ->(sim) { sim.triggers[2].mult = 4 }
           )
         ]
       end
@@ -52,15 +52,18 @@ module Timer
 
     def change_bpm(new_bpm)
       bpm.bpm = new_bpm
-      periodics.each(&:bpm_changed!)
     end
 
-    def periodics
-      @periodics ||= [
-        Periodic.new(bpm, mult: 1),
-        Periodic.new(bpm, mult: 0.5),
-        Periodic.new(bpm, mult: 2),
-        Periodic.new(bpm, mult: 4)
+    def fan_out
+      @fan_out ||= Triggers::FanOut.new(triggers, final_trigger: logger)
+    end
+
+    def triggers
+      @triggers ||= [
+        Triggers::Periodic.new(outputs[0], mult: 1),
+        Triggers::Periodic.new(outputs[1], mult: 2),
+        Triggers::Periodic.new(outputs[2], mult: 4),
+        Triggers::Periodic.new(outputs[3], mult: 8)
       ]
     end
 
@@ -72,19 +75,8 @@ module Timer
       iterations.times do |t|
         now = Nanos.now
         bpm.start(now) unless bpm.running?
-        bpm.update(now)
-        run_periodics(now)
+        bpm.update(now, triggerable: fan_out)
         run_interactions(t)
-      end
-    end
-
-    def run_periodics(now)
-      periodics.each_with_index do |p, i|
-        if i == periodics.length - 1
-          p.update(now, logger)
-        else
-          p.update(now, outputs[i])
-        end
       end
     end
 
