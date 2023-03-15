@@ -18,7 +18,7 @@ module Timer
       @running
     end
 
-    def update(now, triggerable: NoopTrigger.new)
+    def update(now, triggerable: Triggers::Noop.new)
       return if now < next_beat_at
 
       triggerable.trigger

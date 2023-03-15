@@ -1,3 +1,5 @@
 module Timer
-  NoopTrigger = Struct.new(:trigger)
+  module Triggers
+    Noop = Struct.new(:trigger)
+  end
 end
