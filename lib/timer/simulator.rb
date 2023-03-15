@@ -59,12 +59,10 @@ module Timer
     end
 
     def triggers
-      @triggers ||= [
-        Triggers::Periodic.new(bpm.resolution, outputs[0], mult: 1),
-        Triggers::Periodic.new(bpm.resolution, outputs[1], mult: 2),
-        Triggers::Periodic.new(bpm.resolution, outputs[2], mult: 4),
-        Triggers::Periodic.new(bpm.resolution, outputs[3], mult: 8)
-      ]
+      @triggers ||=
+        [[0, 1], [1, 2], [2, 4], [3, 8]].map do |output, mult|
+          Triggers::Periodic.new(bpm.resolution, outputs[output], mult:)
+        end
     end
 
     private
