@@ -1,4 +1,6 @@
 module Timer
+  NoopTrigger = Struct.new(:trigger).new
+
   # Bpm stuffs
   class Bpm
     attr_reader :next_beat_at, :prev_beat_at
@@ -18,8 +20,10 @@ module Timer
       @running
     end
 
-    def update(now)
+    def update(now, triggerable: NoopTrigger)
       return if now < next_beat_at
+
+      triggerable.trigger
 
       step
     end
