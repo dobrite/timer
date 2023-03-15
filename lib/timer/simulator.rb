@@ -13,7 +13,7 @@ module Timer
       end
 
       def run_config
-        { iterations: 3_000_000, logger: Loggers::Logger.new, interactions: }
+        { iterations: 15_000_000, logger: Loggers::Logger.new, interactions: }
       end
 
       def test_config
@@ -25,13 +25,13 @@ module Timer
       end
 
       def interactions
-        [
-          Interaction.new(300_000..600_000, ->(sim) { sim.change_bpm(30) }),
-          Interaction.new(
-            600_000..1_200_000,
-            ->(sim) { sim.triggers[2].mult = 4 }
-          )
-        ]
+        # Interaction.new(300_000..600_000, ->(sim) { sim.change_bpm(30) }),
+        # Interaction.new(
+        #   600_000..1_200_000,
+        #   ->(sim) { sim.triggers[2].mult = 4 }
+        # )
+
+        []
       end
 
       def test?
