@@ -10,7 +10,7 @@ module Timer
         @count = 0
       end
 
-      def update
+      def trigger
         return unless (@count += 1) == mult
 
         triggerable.trigger
