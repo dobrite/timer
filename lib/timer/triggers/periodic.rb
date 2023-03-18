@@ -11,9 +11,9 @@ module Timer
       end
 
       def trigger
+        triggerable.trigger if @count.zero?
         return unless (@count += 1) == trigger_count
 
-        triggerable.trigger
         @count = 0
 
         return unless next_mult

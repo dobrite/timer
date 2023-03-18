@@ -41,6 +41,15 @@ module Timer
 
         assert_equal 8, test_trigger.count
       end
+
+      def test_initial_trigger
+        resolution = 24
+        test_trigger = TestTrigger.new
+        periodic = Triggers::Periodic.new(resolution, test_trigger, mult: 2)
+        periodic.trigger
+
+        assert_equal 1, test_trigger.count
+      end
     end
   end
 end
