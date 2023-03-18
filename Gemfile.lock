@@ -34,7 +34,7 @@ GEM
     rerun (0.14.0)
       listen (~> 3.0)
     rexml (3.2.5)
-    rubocop (1.48.0)
+    rubocop (1.48.1)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
@@ -64,7 +64,7 @@ DEPENDENCIES
   minitest (~> 5.0)
   rake (~> 13.0)
   rerun
-  rubocop (~> 1.21)
+  rubocop
   rubocop-minitest
   rubocop-rake
   syntax_tree
