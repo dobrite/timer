@@ -25,13 +25,13 @@ module Timer
       end
 
       def interactions
-        # Interaction.new(300_000..600_000, ->(sim) { sim.change_bpm(30) }),
-        # Interaction.new(
-        #   600_000..1_200_000,
-        #   ->(sim) { sim.triggers[2].mult = 4 }
-        # )
-
-        []
+        [
+          Interaction.new(300_000..600_000, ->(sim) { sim.change_bpm(30) }),
+          Interaction.new(
+            600_000..1_200_000,
+            ->(sim) { sim.triggers[2].mult = 4 }
+          )
+        ]
       end
 
       def test?
@@ -60,7 +60,7 @@ module Timer
 
     def triggers
       @triggers ||=
-        [[0, 1], [1, 2], [2, 4], [3, 8]].map do |output, mult|
+        [[0, 1], [1, 2], [2, 0.5], [3, 8]].map do |output, mult|
           Triggers::Periodic.new(bpm.resolution, outputs[output], mult:)
         end
     end
