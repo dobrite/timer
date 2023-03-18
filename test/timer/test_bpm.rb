@@ -8,7 +8,7 @@ module Timer
       bpm = Bpm.new(120)
       expected = 500_000_000 / bpm.resolution
 
-      assert_equal expected, bpm.nanos_per_beat
+      assert_equal expected, bpm.send(:nanos_per_beat)
     end
 
     def test_new_prev_beat_at

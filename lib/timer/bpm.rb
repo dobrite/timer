@@ -26,10 +26,6 @@ module Timer
       step
     end
 
-    def nanos_per_beat
-      (seconds_per_beat * NANOS_PER_SECOND).floor
-    end
-
     def bpm=(new_bpm)
       @bpm = new_bpm
       @next_beat_at = calc_next_beat_at
@@ -48,6 +44,10 @@ module Timer
 
     def calc_next_beat_at
       prev_beat_at + nanos_per_beat
+    end
+
+    def nanos_per_beat
+      (seconds_per_beat * NANOS_PER_SECOND).floor
     end
 
     def seconds_per_beat
