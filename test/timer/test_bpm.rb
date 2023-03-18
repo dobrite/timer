@@ -4,7 +4,14 @@ module Timer
   class TestBpm < Minitest::Test
     include StubNow
 
-    def test_nanos_per_beat
+    def test_nanos_per_beat_resolution4
+      bpm = Bpm.new(120, resolution: 4)
+      expected = 500_000_000 / bpm.resolution
+
+      assert_equal expected, bpm.send(:nanos_per_beat)
+    end
+
+    def test_nanos_per_beat_resolution24
       bpm = Bpm.new(120)
       expected = 500_000_000 / bpm.resolution
 

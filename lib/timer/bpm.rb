@@ -1,11 +1,14 @@
 module Timer
   # Bpm stuffs
   class Bpm
-    attr_reader :next_beat_at, :prev_beat_at
+    DEFAULT_RESOLUTION = 24
 
-    def initialize(bpm)
+    attr_reader :next_beat_at, :prev_beat_at, :resolution
+
+    def initialize(bpm, resolution: DEFAULT_RESOLUTION)
       @bpm = bpm
       @running = false
+      @resolution = resolution
     end
 
     def start(now)
@@ -29,10 +32,6 @@ module Timer
     def bpm=(new_bpm)
       @bpm = new_bpm
       @next_beat_at = calc_next_beat_at
-    end
-
-    def resolution
-      24
     end
 
     private
