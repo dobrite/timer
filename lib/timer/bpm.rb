@@ -3,7 +3,7 @@ module Timer
   class Bpm
     DEFAULT_RESOLUTION = 24
 
-    attr_reader :next_beat_at, :prev_beat_at, :resolution
+    attr_reader :resolution
 
     def initialize(bpm, resolution: DEFAULT_RESOLUTION)
       @bpm = bpm
@@ -53,6 +53,6 @@ module Timer
       SECONDS_PER_MINUTE.to_f / bpm / resolution
     end
 
-    attr_reader :bpm
+    attr_reader :bpm, :next_beat_at, :prev_beat_at
   end
 end
