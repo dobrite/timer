@@ -22,7 +22,7 @@ module Timer
       stub_now do
         bpm = Bpm.new(120)
 
-        assert_nil bpm.prev_beat_at
+        assert_nil bpm.send(:prev_beat_at)
       end
     end
 
@@ -33,7 +33,7 @@ module Timer
         bpm.start(now)
         expected = now
 
-        assert_equal expected, bpm.next_beat_at
+        assert_equal expected, bpm.send(:next_beat_at)
       end
     end
 
@@ -47,7 +47,7 @@ module Timer
         elapsed_seconds = 0
         expected = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
 
-        assert_equal expected, bpm.prev_beat_at
+        assert_equal expected, bpm.send(:prev_beat_at)
       end
     end
 
@@ -61,7 +61,7 @@ module Timer
         elapsed_seconds = 0.5 / bpm.resolution.to_f
         expected = NOW_IN_NANOS + (elapsed_seconds * NANOS_PER_SECOND).floor
 
-        assert_equal expected, bpm.next_beat_at
+        assert_equal expected, bpm.send(:next_beat_at)
       end
     end
   end
